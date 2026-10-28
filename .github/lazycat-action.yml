@@ -1,0 +1,45 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/tymeslot.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: tymeslot
+
+build:
+  toolchains: []
+  run_buildscript: false
+
+images:
+  - id: tymeslot
+    target: service
+    service: tymeslot
+    source: docker.io/luka1thb/tymeslot
+    channel: stable
+    sort: semver
+    # Strict three-part tags; excludes the -slim variants, latest and slim.
+    tag_regex: ^[0-9]+[.][0-9]+[.][0-9]+$
+    delivery:
+      mode: mirror
+      image_template: "docker.1ms.run/luka1thb/tymeslot:{tag}"
+      require_digest_match: true
+
+stores:
+  official:
+    enabled: false
+    skip_if_version_exists: false
+    retry:
+      enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Tymeslot
+    summary: 镜像加速模式自动跟上游 Docker Hub 版本发布的开源会议预约平台

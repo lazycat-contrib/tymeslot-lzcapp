@@ -1,0 +1,21 @@
+application:
+  subdomain: tymeslot
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://tymeslot:4000/
+
+services:
+  tymeslot:
+    # luka1thb/tymeslot:1.33.0
+    image: docker.1ms.run/luka1thb/tymeslot:1.33.0
+    environment:
+      - SECRET_KEY_BASE={{ stable_secret "tymeslot_secret_key" }}
+      - PHX_HOST=localhost
+      # EMAIL_ADAPTER is deliberately not set: the app setting controls it.
+      # Configure SMTP, Postmark or SendGrid in Admin before going live,
+      # otherwise email silently drops.
+    binds:
+      - /lzcapp/var/data:/app/data
+      - /lzcapp/var/postgres:/var/lib/postgresql/data
