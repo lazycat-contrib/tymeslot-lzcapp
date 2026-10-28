@@ -5,10 +5,10 @@ application:
   upstreams:
     - location: /
       backend: http://tymeslot:4000/
-
 services:
   tymeslot:
     # luka1thb/tymeslot:1.33.0
+    # upstream: docker.io/luka1thb/tymeslot:1.33.0
     image: docker.1ms.run/luka1thb/tymeslot:1.33.0
     environment:
       - SECRET_KEY_BASE={{ stable_secret "tymeslot_secret_key" }}
