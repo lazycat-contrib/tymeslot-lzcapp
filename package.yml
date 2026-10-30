@@ -1,5 +1,5 @@
 package: community.lazycat.app.tymeslot
-version: 1.33.0
+version: 1.34.0
 name: Tymeslot
 description: Open-source meeting scheduling platform built with Elixir and Phoenix LiveView, self-hosted with an embedded database
 min_os_version: 1.5.0
